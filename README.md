@@ -8,5 +8,5 @@ h0nt3d's Discord Bot
 - discord.py
 
 # Setup
-run `INSTALL-DEPENDENCIES.sh` to install dependencies. <br>
+run `INSTALL_DEPENDENCIES.sh` to install dependencies. <br>
 run `python main.py` to run Vivian.
