@@ -6,6 +6,8 @@ h0nt3d's Discord Bot
 - pip
 - dotenv
 - discord.py
+- beautifulsoup4
+- apscheduler
 
 # Setup
 run `INSTALL_DEPENDENCIES.sh` to install dependencies. <br>
