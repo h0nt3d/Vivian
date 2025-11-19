@@ -2,12 +2,11 @@
 h0nt3d's Discord Bot
 
 # Dependencies
-- python
-- pip
+- nodejs
 - dotenv
-- discord.py
+- discord.js
 
 
 # Setup
 run `INSTALL_DEPENDENCIES.sh` to install dependencies. <br>
-run `python main.py` to run Vivian.
+run `node index.js` to run Vivian.
