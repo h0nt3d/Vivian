@@ -1,5 +1,3 @@
 cd src
-python -m venv virtualEnv
+npm install dotenv discord.js
 
-source virtualEnv/bin/activate
-pip install discord.py dotenv
