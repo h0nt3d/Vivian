@@ -7,9 +7,6 @@ const r4zor_TARGET_CHANNEL_ID = process.env.r4zor_TARGET_CHANNEL_ID;
 const vivian_WEBHOOK_CHANNEL_ID = process.env.vivian_WEBHOOK_CHANNEL_ID;
 const vivian_TARGET_CHANNEL_ID = process.env.vivian_TARGET_CHANNEL_ID;
 
-
-
-// Create client with message intent (required!)
 const client = new Client({
 	intents: [
         GatewayIntentBits.Guilds,
@@ -23,13 +20,11 @@ client.once(Events.ClientReady, (readyClient) => {
 });
 
 client.on(Events.MessageCreate, async (message) => {
-	// Avoid responding to itself
 	if (message.author.id === client.user.id) return;
 
 	
 	if (message.channel.id === r4zor_WEBHOOK_CHANNEL_ID) {
 
-		// Get message content or embed description
 		let commit_message = message.content;
 
 		if (message.embeds.length > 0 && message.embeds[0].data?.description) {
@@ -41,7 +36,6 @@ client.on(Events.MessageCreate, async (message) => {
 			return;
 		}
 
-		// Find target channel
 		const targetChannel = await client.channels.fetch(r4zor_TARGET_CHANNEL_ID).catch(() => null);
 
 		if (!targetChannel) {
@@ -49,13 +43,11 @@ client.on(Events.MessageCreate, async (message) => {
 			return;
 		}
 
-		// Send the commit message
 		await targetChannel.send(`**New Commit:**\n${commit_message}`);
 		console.log(`Commit message received in ${message.channel.name}: ${commit_message}`);
 	}
 	else if (message.channel.id === vivian_WEBHOOK_CHANNEL_ID) {
 
-		// Get message content or embed description
 		let commit_message = message.content;
 
 		if (message.embeds.length > 0 && message.embeds[0].data?.description) {
@@ -67,7 +59,6 @@ client.on(Events.MessageCreate, async (message) => {
 			return;
 		}
 
-		// Find target channel
 		const targetChannel = await client.channels.fetch(vivian_TARGET_CHANNEL_ID).catch(() => null);
 
 		if (!targetChannel) {
@@ -75,7 +66,6 @@ client.on(Events.MessageCreate, async (message) => {
 			return;
 		}
 
-		// Send the commit message
 		await targetChannel.send(`**New Commit:**\n${commit_message}`);
 		console.log(`Commit message received in ${message.channel.name}: ${commit_message}`);
 	}
