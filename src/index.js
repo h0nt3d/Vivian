@@ -15,16 +15,17 @@ const client = new Client({
     ]
 });
 
-client.once(Events.ClientReady, (readyClient) => {
-	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-
-	
+client.once(Events.ClientReady, async (readyClient) => {
+	console.log(`Ready! Logged in as ${readyClient.user.tag}`);	
 	const echo = new SlashCommandBuilder()
-		.setName('echo')
-		.setDescription('Replies with your input!');
-	
+                .setName('echo')
+                .setDescription('Replies with your input!');
+
+        client.application.commands.create(echo);
+
 
 });
+
 
 client.on(Events.MessageCreate, async (message) => {
 	if (message.author.id === client.user.id) return;
