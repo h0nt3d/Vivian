@@ -21,8 +21,23 @@ const client = new Client({
 client.once(Events.ClientReady, async (readyClient) => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);	
 	
+	/* For Deleting Old Commands
+	const existingGlobal = await client.application.commands.fetch();
+	for (const cmd of existingGlobal.values()) {
+ 		if (cmd.name === '') await client.application.commands.delete(cmd.id);
+	}
+	*/
+
+	const guild = client.guilds.cache.get(GUILD_ID);
+	if (!guild) return console.error('Guild not found');
+
+	const existingCommands = await guild.commands.fetch();
+	for (const cmd of existingCommands.values()) {
+		await guild.commands.delete(cmd.id);
+	}
+
 	for (const command of commands) {
-		client.guilds.cache.get(GUILD_ID).commands.create(command);
+		await guild.commands.create(command);
 	}
 
 });
@@ -79,6 +94,15 @@ client.on(Events.MessageCreate, async (message) => {
 		console.log(`Commit message received in ${message.channel.name}: ${commit_message}`);
 	}
 
+});
+
+client.on(Events.InteractionCreate, async (interaction) => {
+	if (!interaction.isChatInputCommand()) return;
+
+	if (interaction.commandName === "echo") {
+		const message = interaction.options.getString('message');
+		await interaction.reply(message);
+	}
 });
 
 client.login(TOKEN);
