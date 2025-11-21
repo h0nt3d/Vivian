@@ -1,4 +1,6 @@
 const { Client, Events, GatewayIntentBits, SlashCommandBuilder } = require("discord.js");
+const commands = require("./commands.js");
+
 require("dotenv").config();
 
 const TOKEN = process.env.TOKEN;
@@ -6,6 +8,7 @@ const r4zor_WEBHOOK_CHANNEL_ID = process.env.r4zor_WEBHOOK_CHANNEL_ID;
 const r4zor_TARGET_CHANNEL_ID = process.env.r4zor_TARGET_CHANNEL_ID;
 const vivian_WEBHOOK_CHANNEL_ID = process.env.vivian_WEBHOOK_CHANNEL_ID;
 const vivian_TARGET_CHANNEL_ID = process.env.vivian_TARGET_CHANNEL_ID;
+const GUILD_ID = process.env.GUILD_ID;
 
 const client = new Client({
 	intents: [
@@ -17,12 +20,10 @@ const client = new Client({
 
 client.once(Events.ClientReady, async (readyClient) => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);	
-	const echo = new SlashCommandBuilder()
-                .setName('echo')
-                .setDescription('Replies with your input!');
-
-        client.application.commands.create(echo);
-
+	
+	for (const command of commands) {
+		client.guilds.cache.get(GUILD_ID).commands.create(command);
+	}
 
 });
 
