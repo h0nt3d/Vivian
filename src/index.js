@@ -1,4 +1,4 @@
-const { Client, Events, GatewayIntentBits } = require("discord.js");
+const { Client, Events, GatewayIntentBits, SlashCommandBuilder } = require("discord.js");
 require("dotenv").config();
 
 const TOKEN = process.env.TOKEN;
@@ -17,6 +17,13 @@ const client = new Client({
 
 client.once(Events.ClientReady, (readyClient) => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+
+	
+	const echo = new SlashCommandBuilder()
+		.setName('echo')
+		.setDescription('Replies with your input!');
+	
+
 });
 
 client.on(Events.MessageCreate, async (message) => {
