@@ -27,6 +27,7 @@ function dailyLogin(client, channelID) {
 	cron.schedule('0 5 * * *', async() => {
 		const channel = client.channels.cache.get(channelID);
 		channel.send('Good morning!');
+		channel.send('Latest News:');
 		channel.send(url);
 	},
 	{
