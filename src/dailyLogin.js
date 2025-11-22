@@ -6,7 +6,7 @@ const { exec } = require('child_process');
 
 
 async function getHTML() {
-        exec('curl https://game8.co/games/Zenless-Zone-Zero/archives | grep "/archives/557173" > news.html');
+        exec('curl https://game8.co/games/Zenless-Zone-Zero/archives | grep "/archives" > news.html');
 }
 
 function getLatestNews(html, baseUrl) {
@@ -32,8 +32,7 @@ function dailyLogin(client, channelID) {
 	},
 	{
 		timezone: 'America/Moncton'
-	}
-	);
+	});
 	console.log('Daily Login Reminder enabled.');
 }
 
