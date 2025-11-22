@@ -1,10 +1,10 @@
 # Vivian
 h0nt3d's Discord Bot
 
-# Dependencies
-- nodejs
-- dotenv
+# Nodejs Dependencies
 - discord.js
+- node-cron
+- dotenv
 
 
 # Setup

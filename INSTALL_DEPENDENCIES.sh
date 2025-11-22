@@ -1,3 +1,3 @@
 cd src
-npm install dotenv discord.js
+npm install dotenv discord.js node-cron
 

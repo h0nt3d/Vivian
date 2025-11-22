@@ -1,5 +1,6 @@
 const { Client, Events, GatewayIntentBits, SlashCommandBuilder } = require("discord.js");
 const commands = require("./commands.js");
+const dailyLogin = require("./dailyLogin.js")
 
 require("dotenv").config();
 
@@ -8,7 +9,9 @@ const r4zor_WEBHOOK_CHANNEL_ID = process.env.r4zor_WEBHOOK_CHANNEL_ID;
 const r4zor_TARGET_CHANNEL_ID = process.env.r4zor_TARGET_CHANNEL_ID;
 const vivian_WEBHOOK_CHANNEL_ID = process.env.vivian_WEBHOOK_CHANNEL_ID;
 const vivian_TARGET_CHANNEL_ID = process.env.vivian_TARGET_CHANNEL_ID;
+const LOGIN_CHANNEL_ID = process.env.LOGIN_CHANNEL_ID;
 const GUILD_ID = process.env.GUILD_ID;
+
 
 const client = new Client({
 	intents: [
@@ -27,6 +30,8 @@ client.once(Events.ClientReady, async (readyClient) => {
  		if (cmd.name === '') await client.application.commands.delete(cmd.id);
 	}
 	*/
+	
+	dailyLogin(client, LOGIN_CHANNEL_ID);
 
 	const guild = client.guilds.cache.get(GUILD_ID);
 	if (!guild) return console.error('Guild not found');
