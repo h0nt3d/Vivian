@@ -10,6 +10,7 @@ const r4zor_TARGET_CHANNEL_ID = process.env.r4zor_TARGET_CHANNEL_ID;
 const vivian_WEBHOOK_CHANNEL_ID = process.env.vivian_WEBHOOK_CHANNEL_ID;
 const vivian_TARGET_CHANNEL_ID = process.env.vivian_TARGET_CHANNEL_ID;
 const LOGIN_CHANNEL_ID = process.env.LOGIN_CHANNEL_ID;
+const WELCOME_CHANNEL = process.env.WELCOME_CHANNEL;
 const GUILD_ID = process.env.GUILD_ID;
 
 
@@ -17,6 +18,7 @@ const client = new Client({
 	intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
+	GatewayIntentBits.GuildMembers,
         GatewayIntentBits.MessageContent
     ]
 });
@@ -47,6 +49,19 @@ client.once(Events.ClientReady, async (readyClient) => {
 
 });
 
+client.on(Events.GuildMemberAdd, async (member) => {
+	const channel = member.guild.channels.cache.get(WELCOME_CHANNEL);
+
+	if (!channel) return;
+
+	try {
+		await channel.send(`Welcome ${member}!`);
+		console.log(`Sent welcome message for user ${member.user.tag}`);
+	}
+	catch (error) {
+		console.log(`Could not send welcome message:`, error);
+	}
+});
 
 client.on(Events.MessageCreate, async (message) => {
 	if (message.author.id === client.user.id) return;
